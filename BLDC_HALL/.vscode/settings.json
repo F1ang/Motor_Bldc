@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "math.h": "c",
+        "usart.h": "c",
+        "main.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "cmath": "c",
+        "limits": "c",
+        "elog.h": "c",
+        "bsp_log.h": "c",
+        "stdio.h": "c",
+        "bsp_hall.h": "c",
+        "bsp_pwm.h": "c",
+        "tim.h": "c",
+        "gpio.h": "c",
+        "arm_math.h": "c"
+    }
+}
