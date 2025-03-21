@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "bsp_hall.h": "c",
+        "bsp_pwm.h": "c",
+        "main.h": "c",
+        "limits": "c",
+        "bsp_motor.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "tim.h": "c",
+        "stdio.h": "c",
+        "cmath": "c",
+        "math.h": "c"
+    }
+}

@@ -1,6 +1,7 @@
 #include "bsp_pwm.h"
 #include "tim.h"
 #include "bsp_hall.h"
+#include "bsp_motor.h"
 
 /**
  * @brief 6步PWM及同步输出  主tim2->从tim1
@@ -48,6 +49,10 @@ void BLDCMotor_PhaseCtrl(int32_t HALLPhase, float PWM_Duty)
     /* 定义电机的U(A),V(B),W(C)三相分别对应是CH1,CH2,CH3;
      *  A+,A-分别表示CH1控制的上,下桥臂导通
      */
+
+    if (Motor_Dir == MOTOR_DIR_CCW) // 换相方向
+        HALLPhase = 7 ^ HALLPhase;  // 逆时针转动
+
     switch (HALLPhase) {
     case 5: // B+  A-
     {

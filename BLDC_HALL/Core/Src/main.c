@@ -29,7 +29,7 @@
 #include "math.h"
 #include "bsp_hall.h"
 #include "bsp_pwm.h"
-
+#include "bsp_motor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,11 +97,13 @@ int main(void)
     MX_TIM1_Init();
     MX_TIM2_Init();
     MX_USART1_UART_Init();
+    MX_TIM6_Init();
     /* USER CODE BEGIN 2 */
     fpu_test = arm_sin_f32(3.1415926 / 6);
     printf("FPU test result: %f\r\n", fpu_test);
 
     PWM_Init();
+    Motor_Init();
     Hall_Start();
     BLDCMotor_Start();
     /* USER CODE END 2 */
