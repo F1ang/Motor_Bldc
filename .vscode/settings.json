@@ -9,6 +9,10 @@
         "tim.h": "c",
         "stdio.h": "c",
         "cmath": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "usart.h": "c",
+        "gpio.h": "c",
+        "pid.h": "c",
+        "stdlib.h": "c"
     }
 }

@@ -37,14 +37,13 @@ s16 Hall_GetPhase(void)
 float HALL_GetSpeed_Hz(void)
 {
     float tmp_Hz = 0;
-    if ((motor_t.hall_cnt == 0) | (motor_t.hall_sum == 0))
+    if (motor_t.hall_sum == 0) // 停下
         return 0;
-    else {
-        tmp_Hz = (float)(motor_t.hall_sum / motor_t.hall_cnt);
-        motor_t.hall_cnt = 0;
-        motor_t.hall_sum = 0;
-        return ((float)HALL_TIM_FREQ / tmp_Hz); // hall接口定时器的时钟频率除以捕获值,得到频率
-    }
+
+    tmp_Hz = (float)motor_t.hall_sum;
+    motor_t.hall_sum = 0;
+
+    return ((float)HALL_TIM_FREQ / tmp_Hz); // hall接口定时器的时钟频率除以捕获值,得到频率
 }
 
 /**
@@ -60,11 +59,17 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 
     /* HALL */
     RT_hallPhase = Hall_GetPhase(); // 获取霍尔引脚的相位
-    BLDCMotor_PhaseCtrl(RT_hallPhase, 0.2f);
+    BLDCMotor_PhaseCtrl(RT_hallPhase, motor_t.speed_duty);
 
-    /* 计算HALL速度 */
-    motor_t.hall_sum += __HAL_TIM_GET_COMPARE(htim, TIM_CHANNEL_1); 
-    motor_t.hall_cnt++;
+    /* 计算HALL速度,需溢出处理 */
+    motor_t.hall_sum = __HAL_TIM_GET_COMPARE(htim, TIM_CHANNEL_1) + motor_t.hall_over * 0xFFFF;
+    motor_t.hall_over = 0;
+    motor_t.real_speed = HALL_GetSpeed_Hz();
+    /* 一阶低通惯性滤波 */
+    motor_t.real_speed = (1 - FILTER_PARAM) * motor_t.real_speed_last + FILTER_PARAM * motor_t.real_speed;
+    if (motor_t.set_speed < 0)
+        motor_t.real_speed = -motor_t.real_speed;
+    motor_t.real_speed_last = motor_t.real_speed;
 
     /* 计算HALL方向 */
     if (HallDirCcw[RT_hallPhase] == L_hallPhase) // 序列与表中的一致 注:按623154为逆向

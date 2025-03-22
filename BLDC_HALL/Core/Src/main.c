@@ -30,6 +30,7 @@
 #include "bsp_hall.h"
 #include "bsp_pwm.h"
 #include "bsp_motor.h"
+#include "pid.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -114,6 +115,10 @@ int main(void)
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
+        if (log_1s >= 50) {
+            log_1s = 0;
+            printf("%.2f, %.2f, %.2f\n", motor_t.set_speed, motor_t.real_speed, motor_t.speed_duty);
+        }
     }
     /* USER CODE END 3 */
 }
