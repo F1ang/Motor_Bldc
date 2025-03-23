@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "dma.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -31,6 +33,7 @@
 #include "bsp_pwm.h"
 #include "bsp_motor.h"
 #include "pid.h"
+#include "bsp_bemf.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,14 +98,17 @@ int main(void)
 
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
+    MX_DMA_Init();
     MX_TIM1_Init();
     MX_TIM2_Init();
     MX_USART1_UART_Init();
     MX_TIM6_Init();
+    MX_ADC1_Init();
     /* USER CODE BEGIN 2 */
     fpu_test = arm_sin_f32(3.1415926 / 6);
     printf("FPU test result: %f\r\n", fpu_test);
 
+    bemf_adc_init();
     PWM_Init();
     Motor_Init();
     Hall_Start();
@@ -117,7 +123,9 @@ int main(void)
         /* USER CODE BEGIN 3 */
         if (log_1s >= 50) {
             log_1s = 0;
-            printf("%.2f, %.2f, %.2f\n", motor_t.set_speed, motor_t.real_speed, motor_t.speed_duty);
+
+            // printf("%.2f, %.2f, %.2f\n", motor_t.set_speed, motor_t.real_speed, motor_t.speed_duty);
+            printf("%d, %d, %d, %d\n", adc_value[0], adc_value[1], adc_value[2], adc_value[3]);
         }
     }
     /* USER CODE END 3 */
