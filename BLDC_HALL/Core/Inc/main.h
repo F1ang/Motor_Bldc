@@ -57,13 +57,13 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define VBUS_Pin GPIO_PIN_3
-#define VBUS_GPIO_Port GPIOA
-#define BEMF_A_Pin GPIO_PIN_4
+#define VBUS_Pin         GPIO_PIN_3
+#define VBUS_GPIO_Port   GPIOA
+#define BEMF_A_Pin       GPIO_PIN_4
 #define BEMF_A_GPIO_Port GPIOA
-#define BEMF_B_Pin GPIO_PIN_5
+#define BEMF_B_Pin       GPIO_PIN_5
 #define BEMF_B_GPIO_Port GPIOA
-#define BEMF_C_Pin GPIO_PIN_6
+#define BEMF_C_Pin       GPIO_PIN_6
 #define BEMF_C_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
