@@ -38,7 +38,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+extern u32 tim1_cc4_frq;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -109,9 +109,12 @@ int main(void)
     printf("FPU test result: %f\r\n", fpu_test);
 
     bemf_adc_init();
+#ifndef UNHALL_MODE
+    Hall_Start();
+#endif
+
     PWM_Init();
     Motor_Init();
-    Hall_Start();
     BLDCMotor_Start();
     /* USER CODE END 2 */
 
@@ -123,9 +126,10 @@ int main(void)
         /* USER CODE BEGIN 3 */
         if (log_1s >= 50) {
             log_1s = 0;
-
             // printf("%.2f, %.2f, %.2f\n", motor_t.set_speed, motor_t.real_speed, motor_t.speed_duty);
-            printf("%d, %d, %d, %d\n", adc_value[0], adc_value[1], adc_value[2], adc_value[3]);
+            bemf_check(&motor_bemf_t);
+            // printf("%d\n", tim1_cc4_frq);
+            printf("%.2f, %.2f, %.2f, %.2f\n", motor_bemf_t.sbus, motor_bemf_t.va, motor_bemf_t.vb, motor_bemf_t.vc);
         }
     }
     /* USER CODE END 3 */

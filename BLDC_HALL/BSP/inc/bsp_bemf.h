@@ -2,7 +2,6 @@
 #define BSP_BEMF_H
 #include "main.h"
 
-#ifdef UNHALL_MODE
 /* 无感BLDC本质:确定啥时候才能进行换相 */
 typedef enum {
     MOTOR_IDLE = 0, // 空闲状态
@@ -16,6 +15,7 @@ typedef enum {
 typedef struct {
     Motor_Sta bemf_sta; // 状态机
 
+    float sbus, va, vb, vc;     // 电机的sbus,va,vb,vc值
     u32 vbus;                   // 母线电压
     u32 bemf_a, bemf_b, bemf_c; // 电机的bemf值
     u32 bemf_filter[3];         // 电机的bemf滤波值
@@ -27,11 +27,11 @@ typedef struct {
 typedef u8 (*Bemf_Func)(Motor_Bemf *bemf_t);
 
 extern Bemf_Func bemf_func[];
-extern u16 adc_value[4];
+extern u32 adc_value[4];
+
+extern Motor_Bemf motor_bemf_t;
 
 extern void bemf_adc_init(void);
 extern u8 bemf_check(Motor_Bemf *bemf_t);
-
-#endif
 
 #endif // BSP_BEMF_H

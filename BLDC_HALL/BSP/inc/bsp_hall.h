@@ -2,6 +2,8 @@
 #define BSP_HALL_H
 
 #include "main.h"
+#include "dma.h"
+#include "adc.h"
 
 #define HALL_TIM_PRESCALER 83 // 实际时钟频率为：1MHz
 #define HALL_TIM_FREQ      (84e6 / (HALL_TIM_PRESCALER + 1))

@@ -95,7 +95,7 @@ typedef enum { FALSE = 0, TRUE = !FALSE } bool;
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
 #define pi     3.14159265358979f
 
-#define UNHALL_MODE
+// #define UNHALL_MODE
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

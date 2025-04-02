@@ -4,7 +4,7 @@
 
 二、转向可调、速度检测及闭环，已实现
 
-三、BEMF换相，待实现
+三、BEMF换相，底层框架测试完毕，具体算法，待实现
 
 ![alt text](pid闭环波形-1.png)
 by hacker_fang

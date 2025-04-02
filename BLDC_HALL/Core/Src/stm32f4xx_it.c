@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file    stm32f4xx_it.c
-  * @brief   Interrupt Service Routines.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    stm32f4xx_it.c
+ * @brief   Interrupt Service Routines.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -75,9 +75,8 @@ void NMI_Handler(void)
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-  while (1)
-  {
-  }
+    while (1) {
+    }
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
@@ -211,7 +210,9 @@ void TIM1_CC_IRQHandler(void)
   /* USER CODE END TIM1_CC_IRQn 0 */
   HAL_TIM_IRQHandler(&htim1);
   /* USER CODE BEGIN TIM1_CC_IRQn 1 */
-
+    // if (htim->Instance == TIM1) {
+    // tim1_cc4_frq++;
+    // }
   /* USER CODE END TIM1_CC_IRQn 1 */
 }
 
@@ -244,17 +245,17 @@ void TIM6_DAC_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles DMA2 stream4 global interrupt.
+  * @brief This function handles DMA2 stream0 global interrupt.
   */
-void DMA2_Stream4_IRQHandler(void)
+void DMA2_Stream0_IRQHandler(void)
 {
-  /* USER CODE BEGIN DMA2_Stream4_IRQn 0 */
+  /* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
 
-  /* USER CODE END DMA2_Stream4_IRQn 0 */
+  /* USER CODE END DMA2_Stream0_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc1);
-  /* USER CODE BEGIN DMA2_Stream4_IRQn 1 */
+  /* USER CODE BEGIN DMA2_Stream0_IRQn 1 */
 
-  /* USER CODE END DMA2_Stream4_IRQn 1 */
+  /* USER CODE END DMA2_Stream0_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
