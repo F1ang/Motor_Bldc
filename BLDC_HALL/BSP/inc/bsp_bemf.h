@@ -30,6 +30,7 @@ extern Bemf_Func bemf_func[];
 extern u32 adc_value[4];
 
 extern Motor_Bemf motor_bemf_t;
+extern u32 tim1_cc4_frq;
 
 extern void bemf_adc_init(void);
 extern u8 bemf_check(Motor_Bemf *bemf_t);

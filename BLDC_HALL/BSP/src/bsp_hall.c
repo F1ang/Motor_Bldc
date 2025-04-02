@@ -6,10 +6,6 @@
 /* 逆时针表 */
 const u8 HallDirCcw[7] = {0, 5, 3, 1, 6, 4, 2};
 
-/* 无感cc4频率下触发BEMF检测 */
-u32 tim1_cc4_frq = 0;
-extern DMA_HandleTypeDef hdma_adc1;
-
 /**
  * @brief 启动HALL边沿中断
  * @retval None
@@ -84,18 +80,4 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     L_hallPhase = RT_hallPhase; // 记录这一个的霍尔值
 
     HAL_TIM_GenerateEvent(&htim1, TIM_EVENTSOURCE_COM); // 软件生成COM事件
-}
-
-/**
- * @brief CC4的比较中断(定频率)
- * @param *htim
- * @retval None
- */
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance == TIM1) {
-        if (HAL_DMA_GetState(&hdma_adc1)) // 等待DMA传输完成
-            if (tim1_cc4_frq < 0xFFFFFF)
-                tim1_cc4_frq++;
-    }
 }

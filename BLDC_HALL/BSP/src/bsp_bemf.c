@@ -8,8 +8,11 @@ u8 bemf_start_up(Motor_Bemf *bemf_t);
 u8 bemf_running(Motor_Bemf *bemf_t);
 
 u32 adc_value[4] = {0}; // 正->负即过零点
-
 Motor_Bemf motor_bemf_t;
+
+/* 无感cc4频率下触发BEMF检测 */
+u32 tim1_cc4_frq = 0;
+extern DMA_HandleTypeDef hdma_adc1;
 
 /**
  * @brief DMA数据mem和软件adc启动
@@ -104,4 +107,19 @@ u8 bemf_start_up(Motor_Bemf *bemf_t)
 u8 bemf_running(Motor_Bemf *bemf_t)
 {
     return 1;
+}
+
+/**
+ * @brief CC4的比较中断(定频率)
+ * @param *htim
+ * @retval None
+ */
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == TIM1) {
+        if (HAL_DMA_GetState(&hdma_adc1)) { // 等待DMA传输完成
+            if (tim1_cc4_frq < 0xFFFFFF)
+                tim1_cc4_frq++;
+        }
+    }
 }
