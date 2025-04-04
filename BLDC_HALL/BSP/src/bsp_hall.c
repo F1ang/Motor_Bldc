@@ -78,6 +78,4 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
     } else
         RT_hallDir = MOTOR_DIR_CW;
     L_hallPhase = RT_hallPhase; // 记录这一个的霍尔值
-
-    HAL_TIM_GenerateEvent(&htim1, TIM_EVENTSOURCE_COM); // 软件生成COM事件
 }

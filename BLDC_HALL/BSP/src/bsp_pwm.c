@@ -4,7 +4,6 @@
 #include "bsp_motor.h"
 #include "bsp_bemf.h"
 
-#define PWM_PERIOD 2100
 /**
  * @brief 6步PWM及同步输出  主tim2->从tim1
  * @retval None
@@ -20,7 +19,9 @@ void PWM_Init(void)
  */
 void BLDCMotor_Start(void)
 {
+#ifndef UNHALL_MODE
     int32_t hallPhase = 0;
+#endif
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 0);
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
@@ -58,6 +59,8 @@ void BLDCMotor_PhaseCtrl(int32_t HALLPhase, float PWM_Duty)
 
     if (Motor_Dir == MOTOR_DIR_CCW) // 换相方向
         HALLPhase = 7 ^ HALLPhase;  // 逆时针转动
+
+    motor_bemf_t.motor_step = HALLPhase;
 
     switch (HALLPhase) {
     case 5: // B+  A-
@@ -161,4 +164,5 @@ void BLDCMotor_PhaseCtrl(int32_t HALLPhase, float PWM_Duty)
         HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
     } break;
     }
+    HAL_TIM_GenerateEvent(&htim1, TIM_EVENTSOURCE_COM); // 软件生成COM事件
 }

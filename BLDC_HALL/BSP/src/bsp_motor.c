@@ -4,6 +4,7 @@
 #include "bsp_hall.h"
 #include "pid.h"
 #include <stdlib.h>
+#include "bsp_bemf.h"
 
 MotorDir_Typedef Motor_Dir = MOTOR_DIR_CCW; /* 电机方向,顺时针623154->电机换相方向 */
 MotorDir_Typedef RT_hallDir = MOTOR_DIR_CW; /* 霍尔顺序得到的电机转动方向->电机速度 */
@@ -12,6 +13,8 @@ Motor_HandleTypeDef motor_t;
 
 u16 pid_loop_20ms = 0;
 u32 log_1s = 0;
+u32 bemf_time_cnt = 0; // 无感计时
+
 /**
  * @brief motor init
  * @retval None
@@ -42,9 +45,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == TIM6) {
         log_1s++;
         pid_loop_20ms++;
+        bemf_time_cnt++;
         if (pid_loop_20ms > 20) { // 20ms
             pid_loop_20ms = 0;
-
+#ifndef UNHALL_MODE
             // pid loop
             pid_t.target_val = motor_t.set_speed;
             pid_t.real_val = motor_t.real_speed;
@@ -59,6 +63,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
             if (motor_t.speed_duty >= 1.0f)
                 motor_t.speed_duty = 0.8f;
+#endif
         }
     }
 }

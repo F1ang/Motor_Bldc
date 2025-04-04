@@ -124,12 +124,12 @@ int main(void)
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-        if (log_1s >= 50) {
+        if (log_1s >= 10) {
             log_1s = 0;
             // printf("%.2f, %.2f, %.2f\n", motor_t.set_speed, motor_t.real_speed, motor_t.speed_duty);
-            bemf_check(&motor_bemf_t);
-            printf("%d\n", tim1_cc4_frq);
-            printf("%.2f, %.2f, %.2f, %.2f\n", motor_bemf_t.sbus, motor_bemf_t.va, motor_bemf_t.vb, motor_bemf_t.vc);
+            // printf("%d,%d\n", bemf_check_once, motor_bemf_t.motor_step);
+            printf("%d,%.2f, %.2f, %.2f, %.2f\n", motor_bemf_t.motor_step, motor_bemf_t.sbus, motor_bemf_t.va,
+                   motor_bemf_t.vb, motor_bemf_t.vc);
         }
     }
     /* USER CODE END 3 */

@@ -8,3 +8,5 @@
 
 ![alt text](pid闭环波形-1.png)
 by hacker_fang
+
+![alt text](bemf检测换相-1.png)

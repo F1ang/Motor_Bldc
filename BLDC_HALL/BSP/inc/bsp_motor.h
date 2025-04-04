@@ -22,6 +22,7 @@ extern MotorDir_Typedef RT_hallDir; /* 霍尔顺序得到的电机转动方向->
 extern Motor_HandleTypeDef motor_t;
 extern u32 log_1s;
 extern u16 pid_loop_20ms;
+extern u32 bemf_time_cnt;
 
 extern void Motor_Init(void);
 
