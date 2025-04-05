@@ -13,7 +13,6 @@ Motor_HandleTypeDef motor_t;
 
 u16 pid_loop_20ms = 0;
 u32 log_1s = 0;
-u32 bemf_time_cnt = 0; // 无感计时
 
 /**
  * @brief motor init
@@ -45,7 +44,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == TIM6) {
         log_1s++;
         pid_loop_20ms++;
-        bemf_time_cnt++;
         if (pid_loop_20ms > 20) { // 20ms
             pid_loop_20ms = 0;
 #ifndef UNHALL_MODE

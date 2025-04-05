@@ -128,8 +128,8 @@ int main(void)
             log_1s = 0;
             // printf("%.2f, %.2f, %.2f\n", motor_t.set_speed, motor_t.real_speed, motor_t.speed_duty);
             // printf("%d,%d\n", bemf_check_once, motor_bemf_t.motor_step);
-            printf("%d,%.2f, %.2f, %.2f, %.2f\n", motor_bemf_t.motor_step, motor_bemf_t.sbus, motor_bemf_t.va,
-                   motor_bemf_t.vb, motor_bemf_t.vc);
+            // printf("%d,%d\n", motor_bemf_t.FlagSwitchStep, motor_bemf_t.motor_bemf_check_cnt);
+            printf("%d,%.2f, %.2f, %.2f\n", motor_bemf_t.motor_step, motor_bemf_t.va, motor_bemf_t.vb, motor_bemf_t.vc);
         }
     }
     /* USER CODE END 3 */

@@ -9,6 +9,7 @@ typedef enum {
     MOTOR_IDLE = 0, // 空闲状态
     MOTOR_INIT,     // 预定位
     MOTOR_START_UP, // 外同步加速
+    MOTOR_CHECK,    // 换相检测
     MOTOR_RUNNING,  // 无感闭环运行
     MOTOR_STOP,     // 停止
     MOTOR_ERROR     // 错误状态
@@ -26,6 +27,12 @@ typedef struct {
     u8 motor_bemf_dir, motor_dir;   // 上升/下降过零点,电机正反转
     u8 motor_state;                 // 电机三段式启动
     u32 motor_bemf_check_cnt;       // 电机bemf检查次数
+    u32 motor_bemf_phase_cnt;       // 电机换相次数
+
+    u8 FlagSwitchStep; // 换向标志
+    u8 FlagBEMF;       // 过零标志
+    u32 PWMTicks;      // cc4计数
+    u32 PWMTicksPre;   // 从上一次换相到过零点检测
 } Motor_Bemf;
 
 typedef u8 (*Bemf_Func)(Motor_Bemf *bemf_t);
@@ -38,7 +45,7 @@ extern u32 tim1_cc4_frq;
 
 extern void bemf_adc_init(void);
 extern u8 bemf_check(Motor_Bemf *bemf_t);
-extern void Bldc_bemf_PhaseCtrl(int32_t HALLPhase, float PWM_Duty);
+extern void Bldc_bemf_PhaseCtrl(Motor_Bemf *bemf_t, float PWM_Duty);
 extern void bemf_state_machine(void);
 
 #endif // BSP_BEMF_H
